@@ -43,6 +43,9 @@ function AppLayout() {
             <Link to="/member" className="block py-2.5 px-4 hover:bg-gray-700">
               Member
             </Link>
+            <Link to="/create-member" className="block py-2.5 px-4 hover:bg-gray-700">
+              CreateMember
+            </Link>
           </nav>
         </div>
 
