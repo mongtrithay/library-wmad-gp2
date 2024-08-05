@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 const BookCatalogPage = () => {
   const [books, setBooks] = useState([]);
   const url = "http://localhost:3000/api/books";
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTcyMjQ5ODA4MCwiZXhwIjoxNzIyNTM0MDgwfQ.08fmHUt0Oo10tPB-16ftZ_7Ff0KIZ1iKHb09b6h4U7k";
+  const token = localStorage.getItem("token") ;
   const obj = {
     method: "GET",
     headers: {
