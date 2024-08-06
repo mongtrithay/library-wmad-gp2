@@ -12,6 +12,13 @@ const BookCatalogPage = () => {
       Authorization: `Bearer ${token}`,
     },
   };
+  const [currentPage, setCurrentPage] = useState(1)
+  const recordsPerPage = 3;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = books.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(books.length / recordsPerPage);
+  const numbers = [...Array(npage + 1).keys()].slice(1);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,7 +51,7 @@ const BookCatalogPage = () => {
           </tr>
         </thead>
         <tbody>
-          {books.map((data) => (
+          {records.map((data) => (
             <tr className="border-b-2 border-gray-300">
               <td class="px-5 py-5">
                 <button class="bg-sky-500 text-center py-1 px-4 text-white rounded-lg">
@@ -61,8 +68,40 @@ const BookCatalogPage = () => {
           ))}
         </tbody>
       </table>
+      <nav>
+        <ul >
+          <li>
+            <a href="#" onClick={prePage}>Prev</a>
+          </li>
+          {
+            numbers.map((n, i) =>(
+              <li className={`page-item ${currentPage === n ? `active` : ''}`} key={i}>
+                <a href="#" onClick={() => changePage(n)}>{n}</a>
+              </li>
+            ))
+          }
+          <li>
+            <a href="#" onClick={nextPage}>Next</a>
+          </li>
+        </ul>
+      </nav>
     </div>
-  );
+  )
+  function prePage () {
+    if(currentPage !== 1){
+      setCurrentPage(currentPage -1)
+    }
+
+  }
+  function changePage (id) {
+    setCurrentPage(id)
+
+  }
+  function nextPage (){
+    if(currentPage !== npage){
+      setCurrentPage(currentPage + 1)
+    }
+  }
 };
 
 export default BookCatalogPage;
