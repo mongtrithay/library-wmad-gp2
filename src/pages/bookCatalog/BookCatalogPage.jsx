@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
+let currentPage = 1;
 const BookCatalogPage = () => {
   const [books, setBooks] = useState([]);
   const url = "http://localhost:3000/api/books";
@@ -12,33 +13,34 @@ const BookCatalogPage = () => {
       Authorization: `Bearer ${token}`,
     },
   };
+
+  
+
+  const getCuleme = 10;
+  const npg = Math.ceil(books.length/ getCuleme);
+
   useEffect(() => {
     const fetchData = async () => {
-      await getBooksWithPagination(1);
+      await getBooksWithPagination(currentPage);
     };
     fetchData();
   }, []);
 
-  
-
-  function getValue(event) {
-    event.preventDefault();
-    let currentPage = Number(document.getElementById("page").value);
-    console.log(currentPage);
-    getBooksWithPagination(currentPage);
-    
-
-  }
+  // let getNumberPage = 1 ; 
 
   const getBooksWithPagination = async (page) => {
+    console.log("page..", page)
     try {
       const respone = await axios.get(
-        `http://localhost:3000/api/books/pagination?page=${page}&pageSize=4`,
+        `http://localhost:3000/api/books/pagination?page=${page}&pageSize=${getCuleme}`,
         obj
       );
       const data = respone.data;
       console.log("--", data);
 
+      // currentPage = data.currentPage;
+      // console.log(data);
+      
       setBooks(data.data);
     } catch (error) {
       console.error("Data oun bc drink beer", error);
@@ -54,39 +56,64 @@ const BookCatalogPage = () => {
       <table className=" my-4 text-left  border-4 border-slate-400 ...">
         <thead>
           <tr className="px-6 py-6 border-b-2 border-gray-300">
-            <th className="px-5 py-5">Action</th>
-            <th className="px-5 py-5">ISBN</th>
-            <th className="px-5 py-5">Title</th>
-            <th className="px-5 py-5">Authors</th>
-            <th className="px-5 py-5">Publisher</th>
-            <th className="px-5 py-5">Genre</th>
-            <th className="px-5 py-5">Shelf Location</th>
+            <th className="px-5 py-3">Action</th>
+            <th className="px-5 py-3">ISBN</th>
+            <th className="px-5 py-3">Title</th>
+            <th className="px-5 py-3">Authors</th>
+            <th className="px-5 py-3">Publisher</th>
+            <th className="px-5 py-3">Genre</th>
+            <th className="px-5 py-3">Shelf Location</th>
           </tr>
         </thead>
         <tbody>
           {books.map((data, i) => (
             <tr key={i} className="border-b-2 border-gray-300">
-              <td className="px-5 py-5">
+              <td className="px-5 py-3">
                 <button className="bg-sky-500 text-center py-1 px-4 text-white rounded-lg">
                   view
                 </button>
               </td>
-              <td className="px-5 py-5">{data.isbn}</td>
-              <td className="px-5 py-5">{data.title}</td>
-              <td className="px-5 py-5">{data.authors}</td>
-              <td className="px-5 py-5">{data.publisher}</td>
-              <td className="px-5 py-5">{data.genre}</td>
-              <td className="px-5 py-5">{data.shelf_location}</td>
+              <td className="px-5 py-3">{data.isbn}</td>
+              <td className="px-5 py-3">{data.title}</td>
+              <td className="px-5 py-3">{data.authors}</td>
+              <td className="px-5 py-3">{data.publisher}</td>
+              <td className="px-5 py-3">{data.genre}</td>
+              <td className="px-5 py-3">{data.shelf_location}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <input type="number" name="submit" id="page" />
-      <button type="onSubmit" onClick={getValue}>
-        submit
+      <button onClick={prePage}>
+        Pre
+      </button>
+      <form action="" method="post" name="test_fn">
+        <h1>1</h1>        
+      </form>
+      <button onClick={nextPage}>
+        Next
       </button>
     </div>
   );
+  function prePage (){
+    currentPage -= 1;
+    getBooksWithPagination(currentPage);
+    // if(getBooksWithPagination !== 1){
+
+    //   setGetNumberPage(getNumberPage - 1)
+    //   getBooksWithPagination(getNumberPage);
+    // }
+  }
+  async function nextPage (){
+    console.log("before next", currentPage);
+    currentPage += 1;
+    console.log("next", currentPage);
+    getBooksWithPagination(currentPage);
+    // if(getBooksWithPagination !== npg){
+      
+    //   setGetNumberPage(getNumberPage +1)
+    //   getBooksWithPagination(getNumberPage);
+    // }
+  }
 };
 
 export default BookCatalogPage;
