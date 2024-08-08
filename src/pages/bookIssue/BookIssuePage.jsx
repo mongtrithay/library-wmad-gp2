@@ -18,9 +18,8 @@ const BookIssuePage = () => {
         const respone = await axios.get(url, obj);
         const data = respone.data;
         setBookIssu(data);
-        console.log("=================", data);
       } catch (error) {
-        console.error("Data oun bc drink beer", error);
+        console.error( error);
       }
     };
     fetchData();
@@ -46,8 +45,8 @@ const BookIssuePage = () => {
           </tr>
         </thead>
         <tbody>
-          {bookIssu.map((data) => (
-            <tr className="border-b-2 border-gray-300">
+          {bookIssu.map((data, i) => (
+            <tr key={i} className="border-b-2 border-gray-300">
               <td class="px-5 py-5">
                 <button class="bg-sky-500 text-center py-1 px-4 text-white rounded-lg">
                   view
