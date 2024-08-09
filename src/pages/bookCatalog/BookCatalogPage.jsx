@@ -14,10 +14,8 @@ const BookCatalogPage = () => {
     },
   };
 
-  
-
   const getCuleme = 10;
-  const npg = Math.ceil(books.length/ getCuleme);
+  const npg = Math.ceil(books.length / getCuleme);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,11 +23,8 @@ const BookCatalogPage = () => {
     };
     fetchData();
   }, []);
-
-  // let getNumberPage = 1 ; 
-
   const getBooksWithPagination = async (page) => {
-    console.log("page..", page)
+    console.log("page..", page);
     try {
       const respone = await axios.get(
         `http://localhost:3000/api/books/pagination?page=${page}&pageSize=${getCuleme}`,
@@ -39,8 +34,8 @@ const BookCatalogPage = () => {
       console.log("--", data);
 
       // currentPage = data.currentPage;
-      // console.log(data);
-      
+      console.log("============", data.totalPages);
+
       setBooks(data.data);
     } catch (error) {
       console.error("Data oun bc drink beer", error);
@@ -83,18 +78,28 @@ const BookCatalogPage = () => {
           ))}
         </tbody>
       </table>
-      <button onClick={prePage}>
-        Pre
-      </button>
-      <form action="" method="post" name="test_fn">
-        <h1>1</h1>        
-      </form>
-      <button onClick={nextPage}>
-        Next
-      </button>
+      <nav className=" flex gap-4 w-full justify-end ">
+        <button
+          className="border-2 px-4 border-gray-900 rounded "
+          onClick={prePage}
+        >
+          Pre
+        </button>
+        <form action="" method="post" name="test_fn">
+          <h1 className="border-2 px-3 border-gray-400 rounded bg-slate-200 ">
+            {currentPage}
+          </h1>
+        </form>
+        <button
+          className="border-2 px-3 border-gray-900 mr-9 rounded "
+          onClick={nextPage}
+        >
+          Next
+        </button>
+      </nav>
     </div>
   );
-  function prePage (){
+  function prePage() {
     currentPage -= 1;
     getBooksWithPagination(currentPage);
     // if(getBooksWithPagination !== 1){
@@ -103,13 +108,13 @@ const BookCatalogPage = () => {
     //   getBooksWithPagination(getNumberPage);
     // }
   }
-  async function nextPage (){
+  async function nextPage() {
     console.log("before next", currentPage);
     currentPage += 1;
     console.log("next", currentPage);
     getBooksWithPagination(currentPage);
     // if(getBooksWithPagination !== npg){
-      
+
     //   setGetNumberPage(getNumberPage +1)
     //   getBooksWithPagination(getNumberPage);
     // }
