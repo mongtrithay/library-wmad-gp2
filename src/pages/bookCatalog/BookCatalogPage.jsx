@@ -1,5 +1,8 @@
 import axios from "axios";
 import React from "react";
+import CreateCatalogPage from "./CreateCatalogpage";
+import { Routes, Route } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 const BookCatalogPage = () => {
   const [books, setBooks] = useState([]);
@@ -27,8 +30,10 @@ const BookCatalogPage = () => {
   return (
     <div className=" bg-gray-100">
       <h1 className=" my-4 text-3xl font-bold">Book Catalogs</h1>
-      <button class="bg-sky-500 my-4 text-white font-bold py-4 px-8 rounded-lg ">
+      <button class="bg-sky-500 my-4 text-white font-bold py-4 px-8 rounded-lg  " >
+        <Link to="/book-catalog/new">
         Create
+        </Link>
       </button>
       <table class=" my-4 text-left  border-4 border-slate-400 ...">
         <thead>
@@ -47,7 +52,9 @@ const BookCatalogPage = () => {
             <tr key={i} className="border-b-2 border-gray-300">
               <td class="px-5 py-5">
                 <button class="bg-sky-500 text-center py-1 px-4 text-white rounded-lg">
+                  <Link to={`/book-catalog/${data.id}`}>
                   view
+                  </Link>
                 </button>
               </td>
               <td class="px-5 py-5">{data.isbn}</td>
