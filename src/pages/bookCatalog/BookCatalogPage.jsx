@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 const BookCatalogPage = () => {
   const [books, setBooks] = useState([]);
   const url = "http://localhost:3000/api/books";
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTcyMjQ5ODA4MCwiZXhwIjoxNzIyNTM0MDgwfQ.08fmHUt0Oo10tPB-16ftZ_7Ff0KIZ1iKHb09b6h4U7k";
+  const token = localStorage.getItem("token");
   const obj = {
     method: "GET",
     headers: {
@@ -19,9 +18,8 @@ const BookCatalogPage = () => {
         const respone = await axios.get(url, obj);
         const data = respone.data;
         setBooks(data);
-        console.log(data);
       } catch (error) {
-        console.error("Data oun bc drink beer", error);
+        console.error(error);
       }
     };
     fetchData();
@@ -45,8 +43,8 @@ const BookCatalogPage = () => {
           </tr>
         </thead>
         <tbody>
-          {books.map((data) => (
-            <tr className="border-b-2 border-gray-300">
+          {books.map((data, i) => (
+            <tr key={i} className="border-b-2 border-gray-300">
               <td class="px-5 py-5">
                 <button class="bg-sky-500 text-center py-1 px-4 text-white rounded-lg">
                   view
