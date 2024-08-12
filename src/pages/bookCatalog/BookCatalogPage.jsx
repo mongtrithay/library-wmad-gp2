@@ -1,7 +1,5 @@
 import axios from "axios";
 import React from "react";
-import CreateCatalogPage from "./CreateCatalogpage";
-import { Routes, Route } from "react-router-dom";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 let currentPage = 1;
@@ -16,20 +14,9 @@ const BookCatalogPage = () => {
       Authorization: `Bearer ${token}`,
     },
   };
-
-  const getCuleme = 10;
-  const npg = Math.ceil(books.length / getCuleme);
-
   useEffect(() => {
     const fetchData = async () => {
       await getBooksWithPagination(currentPage);
-      try {
-        const respone = await axios.get(url, obj);
-        const data = respone.data;
-        setBooks(data);
-      } catch (error) {
-        console.error(error);
-      }
     };
     fetchData();
   }, []);
@@ -37,18 +24,13 @@ const BookCatalogPage = () => {
     console.log("page..", page);
     try {
       const respone = await axios.get(
-        `http://localhost:3000/api/books/pagination?page=${page}&pageSize=${getCuleme}`,
+        `http://localhost:3000/api/books/pagination?page=${page}&pageSize=10`,
         obj
       );
       const data = respone.data;
-      console.log("--", data);
-
-      // currentPage = data.currentPage;
-      console.log("============", data.totalPages);
-
       setBooks(data.data);
     } catch (error) {
-      console.error("Data oun bc drink beer", error);
+      console.error(error);
     }
   };
 
@@ -116,22 +98,12 @@ const BookCatalogPage = () => {
   function prePage() {
     currentPage -= 1;
     getBooksWithPagination(currentPage);
-    // if(getBooksWithPagination !== 1){
-
-    //   setGetNumberPage(getNumberPage - 1)
-    //   getBooksWithPagination(getNumberPage);
-    // }
   }
   async function nextPage() {
     console.log("before next", currentPage);
     currentPage += 1;
     console.log("next", currentPage);
     getBooksWithPagination(currentPage);
-    // if(getBooksWithPagination !== npg){
-
-    //   setGetNumberPage(getNumberPage +1)
-    //   getBooksWithPagination(getNumberPage);
-    // }
   }
 };
 
