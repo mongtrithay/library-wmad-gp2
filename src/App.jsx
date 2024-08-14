@@ -10,6 +10,7 @@ import UserAccountInfoPage from "./pages/userAccount/UserAccountInfoPage";
 import CreateUserAccountPage from "./pages/userAccount/CreateUserAccountPage";
 import AppLayout from "./components/AppLayout";
 import MemberPage from "./pages/member/MemberPage";
+import MemberInfo from "./pages/member/MemberInfo";
 import CreateCatalogPage from "./pages/bookCatalog/CreateCatalogpage";
 import Cataloginformation from "./pages/bookCatalog/Cataloginformation";
 
@@ -29,7 +30,8 @@ function App() {
         <Route path="/book-catalog/new" element={<CreateCatalogPage />} />
         <Route path="/book-catalog/:id" element={<Cataloginformation />} />
         <Route path="/book-issue" element={<BookIssuePage />} />
-        <Route path="/member" element={<MemberPage />} />
+        <Route path="/member/" element={<MemberPage />} />
+        <Route path="/member/:id" element={<MemberInfo />} />
       </Route>
     </Routes>
   );
