@@ -24,7 +24,7 @@ function App() {
       <Route element={<AppLayout />}>
         <Route path="/" element={<DashboardPage />} />
         <Route path="/user-account">
-          <Route index element={<UserAccountPage />} />
+          <Route index element={<ListAccount />} />
           <Route path=":id" element={<UserAccountInfoPage />} />
           <Route path="new" element={<CreateUserAccountPage />} />
         </Route>
