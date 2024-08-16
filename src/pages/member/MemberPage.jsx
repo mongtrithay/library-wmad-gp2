@@ -61,7 +61,9 @@ const MemberPage = () => {
         </tbody>
       </table>
     </div>
+    
   );
+  
 };
 
 export default MemberPage;

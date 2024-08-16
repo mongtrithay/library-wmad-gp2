@@ -9,6 +9,7 @@ const UserAccountPage = () => {
         <Link to="/user-account/1">User 1</Link>
         <Link to="/user-account/2">User 2</Link>
         <Link to="/user-account/new">New User</Link>
+        <Link to="/user-account/new">New User</Link>
       </div>
       <div>
         <TabGroup />
@@ -18,3 +19,8 @@ const UserAccountPage = () => {
 };
 
 export default UserAccountPage;
+
+
+
+
+
