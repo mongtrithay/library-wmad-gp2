@@ -6,7 +6,7 @@ import { data } from "autoprefixer";
 function Cataloginformation(){
     const [bookView, setBookView] = useState ([]);
     const { id } = useParams();
-    const url = `http://localhost:3000/api/books/${id}`;
+    const url = `https://wmad-library-backend-six.vercel.app/api/books/${id}`;
     const token = localStorage.getItem("token") ;
     const obj = {
     method: "GET",

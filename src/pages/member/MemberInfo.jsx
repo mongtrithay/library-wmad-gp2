@@ -8,7 +8,7 @@ const MemberInfo = () => {
     const [memberInfo, setMemberInfo] = useState([]);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const url = `http://localhost:3000/api/members/${id}`;
+    const url = `https://wmad-library-backend-six.vercel.app/api/members/${id}`;
     const token = localStorage.getItem('token');
     const obj = {
         headers: {

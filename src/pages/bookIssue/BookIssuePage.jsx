@@ -3,7 +3,7 @@ import axios from "axios";
 import React from "react";
 const BookIssuePage = () => {
   const [bookIssu, setBookIssu] = useState([]);
-  const url = "http://localhost:3000/api/book_issues";
+  const url = "https://wmad-library-backend-six.vercel.app/api/book_issues";
   const token = localStorage.getItem("token");
   const obj = {
     method: "GET",
